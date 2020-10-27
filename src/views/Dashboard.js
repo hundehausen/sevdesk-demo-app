@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { getTicker } from "../libs/api";
-import Table from "../components/Table";
+import CustomTable from "../components/CustomTable";
 
 function Dashboard() {
   const [ticker, setTicker] = useState(null);
@@ -31,7 +31,11 @@ function Dashboard() {
     console.log("tableData", tableData);
   });
 
-  return <div>{JSON.stringify(ticker)}</div>;
+  return (
+    <div>
+      <CustomTable data={tableData} />
+    </div>
+  );
 }
 
 export default Dashboard;

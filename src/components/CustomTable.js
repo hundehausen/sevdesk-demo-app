@@ -26,21 +26,35 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-export default function DenseTable({ data }) {
+export default function CustomTable({ data }) {
+  function getKeys() {
+    return Object.keys(data[0]);
+  }
+
+  function getHeader() {
+    const keys = getKeys();
+    const cells = keys.map((key, index) => {
+      return (
+        <TableCell align="right" key={key}>
+          {key.toUpperCase()}
+        </TableCell>
+      );
+    });
+    return (
+      <TableHead>
+        <TableRow>{cells}</TableRow>
+      </TableHead>
+    );
+  }
+
+  function getRowsData() {}
+
   const classes = useStyles();
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Währung</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
+        {getHeader()}
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
