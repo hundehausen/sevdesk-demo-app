@@ -1,26 +1,24 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import {
+  BitcoinCalc,
+  BitcoinDetails,
+  BitcoinDiagramm,
+  Dashboard,
+} from "./views";
+
+import Nav from "./components/Nav";
 
 function App() {
-  const [ticker, setTicker] = useState({});
-  useEffect(() => {
-    fetch("https://blockchain.info/ticker")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        setTicker(data);
-      });
-  }, [setTicker]);
+  const [view, setView] = useState(0);
 
-  useEffect(() => {
-    console.log("ticker", ticker);
-  }, [ticker]);
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Bitcoin</p>
-      </header>
+      {view === 0 ? <Dashboard /> : null}
+      {view === 1 ? <BitcoinDetails /> : null}
+      {view === 2 ? <BitcoinCalc /> : null}
+      {view === 3 ? <BitcoinDiagramm /> : null}
+      <Nav view={view} setView={setView} />
     </div>
   );
 }
