@@ -28,11 +28,7 @@ export default function CustomTable({ data }) {
         </TableCell>
       );
     });
-    return (
-      <TableHead>
-        <TableRow>{cells}</TableRow>
-      </TableHead>
-    );
+    return <TableRow>{cells}</TableRow>;
   }
 
   function getRowsData() {
@@ -60,8 +56,13 @@ export default function CustomTable({ data }) {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        {getHeader()}
+      <Table
+        stickyHeader
+        className={classes.table}
+        size="small"
+        aria-label="a dense table"
+      >
+        <TableHead>{getHeader()}</TableHead>
         <TableBody>{getRowsData()}</TableBody>
       </Table>
     </TableContainer>

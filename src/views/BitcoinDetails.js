@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SimpleCard from "../components/SimpleCard";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 
 function BitcoinDetails({ stats }) {
   const [displayData, setDisplayData] = useState(null);
@@ -45,7 +46,7 @@ function BitcoinDetails({ stats }) {
     if (displayData) {
       for (const [key, value] of Object.entries(displayData)) {
         const newCard = (
-          <Grid key={"GridItem: " + key} item xs={4}>
+          <Grid item key={"GridItem: " + key} spacing={2} md={4} sm={6} xs={12}>
             <SimpleCard key={key} title={value.title} content={value.data} />{" "}
           </Grid>
         );
@@ -55,11 +56,11 @@ function BitcoinDetails({ stats }) {
   }, [displayData]);
 
   return (
-    <div>
+    <Container>
       <Grid container spacing={3}>
         {cards}
       </Grid>
-    </div>
+    </Container>
   );
 }
 
