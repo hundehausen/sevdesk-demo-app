@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import { getTicker } from "../libs/api";
+
 import CustomTable from "../components/CustomTable";
 
-function Dashboard() {
-  const [ticker, setTicker] = useState(null);
+function Dashboard({ ticker }) {
   const [tableData, setTableData] = useState([]);
-
-  // fetch all data from api
-  useEffect(() => {
-    if (!ticker) {
-      getTicker().then(setTicker);
-    }
-  }, [ticker, setTicker]);
 
   useEffect(() => {
     if (ticker) {

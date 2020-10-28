@@ -1,42 +1,45 @@
 import { useEffect, useState } from "react";
-import { getStats } from "../libs/api";
 import SimpleCard from "../components/SimpleCard";
 import Grid from "@material-ui/core/Grid";
 
-function BitcoinDetails() {
-  const [stats, setStats] = useState(null);
+function BitcoinDetails({ stats }) {
   const [displayData, setDisplayData] = useState(null);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    // fetch all data from api
-    if (!stats) {
-      getStats().then(setStats);
-    }
     // get relevant data
     if (stats) {
       const marketPriceUsd = stats["market_price_usd"];
-      const totalbc = stats["totalbc"];
-      const marketCap = marketPriceUsd * totalbc;
-      const hashrate = parseInt(stats["hash_rate"]) + " GH/s";
+      const totalbc = stats["totalbc"] / Math.pow(10, 8);
+      const marketCap =
+        (marketPriceUsd * totalbc).toLocaleString({
+          currency: "USD",
+        }) + " USD";
+      const hashrate = parseInt(stats["hash_rate"]).toLocaleString() + " GH/s";
       const difficulty = stats["difficulty"];
       const oneDayTxCount = stats["n_tx"];
       const oneDayBtcSent = stats["total_btc_sent"] / Math.pow(10, 8);
 
       const data = {
         marketCap: { title: "Marktkapitalisierung", data: marketCap },
-        totalbc: { title: "Umlaufende Bitcoin", data: totalbc },
-        hashrate: { title: "Hashrate", data: hashrate },
-        difficulty: { title: "Difficulty", data: difficulty },
-        oneDayTxCount: { title: "Transaktionen in 24h", data: oneDayTxCount },
+        totalbc: {
+          title: "Umlaufende Bitcoin",
+          data: totalbc.toLocaleString(),
+        },
+        hashrate: { title: "Hashrate", data: hashrate.toLocaleString() },
+        difficulty: { title: "Difficulty", data: difficulty.toLocaleString() },
+        oneDayTxCount: {
+          title: "Transaktionen in 24h",
+          data: oneDayTxCount.toLocaleString(),
+        },
         oneDayBtcSent: {
           title: "Gesendete Bitcoin in 24h",
-          data: oneDayBtcSent,
+          data: oneDayBtcSent.toLocaleString(),
         },
       };
       setDisplayData(data);
     }
-  }, [stats, setStats]);
+  }, [stats]);
 
   useEffect(() => {
     if (displayData) {
