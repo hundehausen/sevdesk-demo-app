@@ -61,6 +61,7 @@ function BitcoinCalc({ ticker }) {
       <FormControl margin="normal">
         <Select
           id="currency-select"
+          variant="outlined"
           defaultValue={selectedCurrency}
           onChange={(e) => handleCurrencyChange(e)}
         >

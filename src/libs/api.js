@@ -24,4 +24,22 @@ async function getStats() {
     .catch((error) => console.error(error));
 }
 
-export { getTicker, getStats };
+async function getCharts(chartName, timespan, start) {
+  return instance
+    .get(
+      "/charts/" +
+        chartName +
+        "?timespan=" +
+        timespan +
+        "&start=" +
+        start +
+        "&format=json",
+      { params: { cors: true } }
+    )
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => console.error(error));
+}
+
+export { getTicker, getStats, getCharts };
