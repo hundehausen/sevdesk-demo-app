@@ -4,6 +4,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import InfoIcon from "@material-ui/icons/Info";
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 
 const useStyles = makeStyles({
   root: {},
@@ -30,6 +31,10 @@ function Nav({ view, setView }) {
       <BottomNavigationAction
         label="Bitcoin Diagramm"
         icon={<TimelineIcon />}
+      />
+      <BottomNavigationAction
+        label="Meine Bitcoin"
+        icon={<AccountBalanceWalletIcon />}
       />
     </BottomNavigation>
   );

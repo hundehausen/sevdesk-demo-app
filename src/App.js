@@ -5,6 +5,7 @@ import {
   BitcoinDetails,
   BitcoinDiagramm,
   Dashboard,
+  MyBitcoin,
 } from "./views";
 import Nav from "./components/Nav";
 import { getTicker, getStats } from "./libs/api";
@@ -34,6 +35,7 @@ function App() {
       {view === 1 ? <BitcoinDetails stats={stats} /> : null}
       {view === 2 ? <BitcoinCalc ticker={ticker} /> : null}
       {view === 3 ? <BitcoinDiagramm /> : null}
+      {view === 4 ? <MyBitcoin /> : null}
       <Nav view={view} setView={setView} />
     </div>
   );
