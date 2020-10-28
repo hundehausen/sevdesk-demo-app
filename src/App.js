@@ -6,7 +6,6 @@ import {
   BitcoinDiagramm,
   Dashboard,
 } from "./views";
-
 import Nav from "./components/Nav";
 
 function App() {

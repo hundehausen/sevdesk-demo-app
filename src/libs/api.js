@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://blockchain.info",
+  baseURL: "https://api.blockchain.info",
   timeout: 1000,
   responseType: "json",
 });
@@ -15,14 +15,13 @@ async function getTicker() {
     .catch((error) => console.error(error));
 }
 
-async function getTotalBc() {
+async function getStats() {
   return instance
-    .get("/q/totalbc", { params: { cors: true } })
+    .get("/stats", { params: { cors: true } })
     .then((res) => {
-      console.log("Res", res.data);
       return res.data;
     })
     .catch((error) => console.error(error));
 }
 
-export { getTicker, getTotalBc };
+export { getTicker, getStats };

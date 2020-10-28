@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { getTicker } from "../libs/api";
 import CustomTable from "../components/CustomTable";
@@ -17,23 +16,22 @@ function Dashboard() {
   useEffect(() => {
     if (ticker) {
       for (const [currency, value] of Object.entries(ticker)) {
-        const last = value["last"];
-        const buy = value["buy"];
-        const sell = value["sell"];
         const symbol = value["symbol"];
-        const tableEntry = { currency, last, buy, sell, symbol };
+        const last = value["last"] + " " + symbol;
+        const buy = value["buy"] + " " + symbol;
+        const sell = value["sell"] + " " + symbol;
+
+        const tableEntry = { currency, last, buy, sell };
         setTableData((prevData) => [...prevData, tableEntry]);
       }
     }
   }, [ticker]);
 
-  useEffect(() => {
-    console.log("tableData", tableData);
-  });
-
   return (
     <div>
-      <CustomTable data={tableData} />
+      {Object.keys(tableData).length !== 0 ? (
+        <CustomTable data={tableData} />
+      ) : null}
     </div>
   );
 }

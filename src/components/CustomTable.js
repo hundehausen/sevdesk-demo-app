@@ -14,19 +14,8 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 export default function CustomTable({ data }) {
+  console.log(data);
   function getKeys() {
     return Object.keys(data[0]);
   }
@@ -35,7 +24,7 @@ export default function CustomTable({ data }) {
     const keys = getKeys();
     const cells = keys.map((key, index) => {
       return (
-        <TableCell align="right" key={key}>
+        <TableCell align="center" key={key}>
           {key.toUpperCase()}
         </TableCell>
       );
@@ -47,7 +36,26 @@ export default function CustomTable({ data }) {
     );
   }
 
-  function getRowsData() {}
+  function getRowsData() {
+    const keys = getKeys();
+    return data.map((row, index) => {
+      return (
+        <TableRow key={index}>
+          <RenderRow key={index} data={row} keys={keys} />
+        </TableRow>
+      );
+    });
+  }
+
+  function RenderRow({ data, keys }) {
+    return keys.map((key, index) => {
+      return (
+        <TableCell align="center" key={key + ": " + data[key]}>
+          {data[key]}
+        </TableCell>
+      );
+    });
+  }
 
   const classes = useStyles();
 
@@ -55,19 +63,7 @@ export default function CustomTable({ data }) {
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         {getHeader()}
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <TableBody>{getRowsData()}</TableBody>
       </Table>
     </TableContainer>
   );
