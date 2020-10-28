@@ -15,7 +15,6 @@ const useStyles = makeStyles({
 });
 
 export default function CustomTable({ data }) {
-  console.log(data);
   function getKeys() {
     return Object.keys(data[0]);
   }

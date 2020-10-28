@@ -32,7 +32,7 @@ function App() {
     <div className="App">
       {view === 0 ? <Dashboard ticker={ticker} /> : null}
       {view === 1 ? <BitcoinDetails stats={stats} /> : null}
-      {view === 2 ? <BitcoinCalc /> : null}
+      {view === 2 ? <BitcoinCalc ticker={ticker} /> : null}
       {view === 3 ? <BitcoinDiagramm /> : null}
       <Nav view={view} setView={setView} />
     </div>
