@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCharts } from "../libs/api";
+import moment from "moment";
 import Header from "../components/Header";
 import Container from "@material-ui/core/Container";
 import Select from "@material-ui/core/Select";
@@ -23,21 +24,33 @@ function Chart({ data }) {
   return (
     <Container>
       <ResponsiveContainer height={400} width="90%">
-        <Typography variant="h3">{data.name}</Typography>
+        {/* <Typography variant="h3">{data.name}</Typography> */}
         <LineChart
           data={data.values}
           margin={{ top: 15, right: 15, left: 50, bottom: 15 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="">
+          <XAxis
+            dataKey="x"
+            domain={["auto", "auto"]}
+            type="number"
+            tickFormatter={(unixTime) =>
+              moment.unix(unixTime).format("DD-MM-YYYY")
+            }
+          >
             <Label value="Tage" offset={0} position="bottom" />
           </XAxis>
           <YAxis>
             <Label value={data.unit} offset={0} position="left" />
           </YAxis>
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dot={false} dataKey="y" stroke="#8884d8" />
+          <Line
+            type="monotone"
+            dot={false}
+            dataKey="y"
+            name="BTC/USD"
+            stroke="#8884d8"
+          />
         </LineChart>
       </ResponsiveContainer>
     </Container>
@@ -63,7 +76,6 @@ function BitcoinDiagramm() {
 
   function handleTimeRangeChange(event) {
     setTimespan(event.target.value);
-    console.log("event.target.value", event.target.value);
   }
 
   return (
