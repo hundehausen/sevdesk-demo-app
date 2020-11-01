@@ -47,7 +47,7 @@ function BitcoinDetails({ stats }) {
     if (displayData) {
       for (const [key, value] of Object.entries(displayData)) {
         const newCard = (
-          <Grid item key={"GridItem: " + key} spacing={2} md={4} sm={6} xs={12}>
+          <Grid item key={"GridItem: " + key} md={4} sm={6} xs={12}>
             <SimpleCard key={key} title={value.title} content={value.data} />{" "}
           </Grid>
         );

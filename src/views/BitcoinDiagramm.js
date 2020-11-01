@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getCharts } from "../libs/api";
 import moment from "moment";
-import Header from "../components/Header";
 import Container from "@material-ui/core/Container";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import Typography from "@material-ui/core/Typography";
 import {
   ResponsiveContainer,
   LineChart,
@@ -16,34 +16,39 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from "recharts";
-import { Typography } from "@material-ui/core";
 
 function Chart({ data }) {
   return (
     <Container>
+      <Typography variant="h3">{data.name}</Typography>
       <ResponsiveContainer height={400} width="90%">
-        {/* <Typography variant="h3">{data.name}</Typography> */}
         <LineChart
           data={data.values}
           margin={{ top: 15, right: 15, left: 50, bottom: 15 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
+            angle={-45}
             dataKey="x"
             domain={["auto", "auto"]}
+            textAnchor="end"
             type="number"
+            tickCount={20}
             tickFormatter={(unixTime) =>
               moment.unix(unixTime).format("DD-MM-YYYY")
             }
           >
             <Label value="Tage" offset={0} position="bottom" />
           </XAxis>
-          <YAxis>
+          <YAxis domain={["auto", "auto"]}>
             <Label value={data.unit} offset={0} position="left" />
           </YAxis>
-          <Tooltip />
+          <Tooltip
+            labelFormatter={(unixTime) =>
+              moment.unix(unixTime).format("DD-MM-YYYY")
+            }
+          />
           <Line
             type="monotone"
             dot={false}
@@ -58,7 +63,7 @@ function Chart({ data }) {
 }
 
 function BitcoinDiagramm() {
-  const [charts, setCharts] = useState(null);
+  const [charts, setCharts] = useState({ name: "", unit: "", values: [] });
   const [chartName, setChartName] = useState("market-price");
   const [timespan, setTimespan] = useState("1year");
   const [start, setStart] = useState("");
@@ -68,19 +73,13 @@ function BitcoinDiagramm() {
     getCharts(chartName, timespan, start).then(setCharts);
   }, [setCharts, chartName, timespan, start]);
 
-  useEffect(() => {
-    if (charts) {
-      console.log("charts", charts);
-    }
-  }, [charts]);
-
   function handleTimeRangeChange(event) {
     setTimespan(event.target.value);
   }
 
   return (
     <div>
-      <Header title="Bitcoin Charts" />
+      {charts ? <Chart data={charts} /> : null}
       <FormControl>
         <InputLabel id="zeitraum-label">Zeitraum</InputLabel>
         <Select
@@ -96,7 +95,6 @@ function BitcoinDiagramm() {
           <MenuItem value={"1year"}>1 Jahr</MenuItem>
         </Select>
       </FormControl>
-      {charts ? <Chart data={charts} /> : null}
     </div>
   );
 }
