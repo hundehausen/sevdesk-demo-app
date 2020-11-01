@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCharts } from "../libs/api";
+import Header from "../components/Header";
 import Container from "@material-ui/core/Container";
 import {
   ResponsiveContainer,
@@ -16,6 +17,7 @@ import {
 function Chart({ data }) {
   return (
     <Container>
+      <Header title="Bitcoin Charts" />
       <ResponsiveContainer height={400} width="90%">
         <LineChart
           data={data}

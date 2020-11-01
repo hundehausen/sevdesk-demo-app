@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SimpleCard from "../components/SimpleCard";
+import Header from "../components/Header";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
@@ -57,6 +58,7 @@ function BitcoinDetails({ stats }) {
 
   return (
     <Container>
+      <Header title="Bitcoin Details" />
       <Grid container spacing={3}>
         {cards}
       </Grid>

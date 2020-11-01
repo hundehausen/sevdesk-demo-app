@@ -1,6 +1,8 @@
+import { Container } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
 import CustomTable from "../components/CustomTable";
+import Header from "../components/Header";
 
 function Dashboard({ ticker }) {
   const [tableData, setTableData] = useState([]);
@@ -21,9 +23,12 @@ function Dashboard({ ticker }) {
 
   return (
     <div>
-      {Object.keys(tableData).length !== 0 ? (
-        <CustomTable data={tableData} />
-      ) : null}
+      <Header title="Dashboard" />
+      <Container>
+        {Object.keys(tableData).length !== 0 ? (
+          <CustomTable data={tableData} />
+        ) : null}
+      </Container>
     </div>
   );
 }

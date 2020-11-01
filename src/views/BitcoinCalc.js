@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
+import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -47,36 +49,39 @@ function BitcoinCalc({ ticker }) {
   }
 
   return (
-    <form noValidate autoComplete="off">
-      <FormControl margin="normal">
-        <InputLabel htmlFor="amount">Amount:</InputLabel>
-        <Input
-          id="amount"
-          aria-describedby="amount"
-          variant="outlined"
-          value={amount}
-          onChange={(e) => handleValueChange(e)}
-        />
-      </FormControl>
-      <FormControl margin="normal">
-        <Select
-          id="currency-select"
-          variant="outlined"
-          defaultValue={selectedCurrency}
-          onChange={(e) => handleCurrencyChange(e)}
-        >
-          {menuItems}
-        </Select>
-      </FormControl>
-      <FormControl margin="normal">
-        <TextField
-          id="outlined-basic"
-          label="BTC"
-          variant="outlined"
-          value={bitcoinValue}
-        />
-      </FormControl>
-    </form>
+    <Container>
+      <Header title="Bitcoin Umrechner" />
+      <form noValidate autoComplete="off">
+        <FormControl margin="normal">
+          <InputLabel htmlFor="amount">Amount:</InputLabel>
+          <Input
+            id="amount"
+            aria-describedby="amount"
+            variant="outlined"
+            value={amount}
+            onChange={(e) => handleValueChange(e)}
+          />
+        </FormControl>
+        <FormControl margin="normal">
+          <Select
+            id="currency-select"
+            variant="outlined"
+            defaultValue={selectedCurrency}
+            onChange={(e) => handleCurrencyChange(e)}
+          >
+            {menuItems}
+          </Select>
+        </FormControl>
+        <FormControl margin="normal">
+          <TextField
+            id="outlined-basic"
+            label="BTC"
+            variant="outlined"
+            value={bitcoinValue}
+          />
+        </FormControl>
+      </form>
+    </Container>
   );
 }
 
