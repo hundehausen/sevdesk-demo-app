@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
+import { makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Container from "@material-ui/core/Container";
@@ -8,12 +10,21 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
+const theme = createMuiTheme();
+
+const useStyles = makeStyles({
+  root: {
+    margin: theme.spacing(2),
+  },
+});
+
 function BitcoinCalc({ ticker }) {
   const [selectedCurrency, setSelectedCurrency] = useState("EUR");
   const [amount, setAmount] = useState(0);
   const [currencies, setCurrencies] = useState([]);
   const [menuItems, setMenuItems] = useState(null);
   const [bitcoinValue, setBitcoinValue] = useState(0);
+  const classes = useStyles();
 
   // get all currencies from ticker object
   useEffect(() => {
@@ -51,9 +62,9 @@ function BitcoinCalc({ ticker }) {
   return (
     <Container>
       <Header title="Bitcoin Umrechner" />
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" className={classes.root}>
         <FormControl margin="normal">
-          <InputLabel htmlFor="amount">Amount:</InputLabel>
+          <InputLabel htmlFor="amount">Betrag</InputLabel>
           <Input
             id="amount"
             aria-describedby="amount"
