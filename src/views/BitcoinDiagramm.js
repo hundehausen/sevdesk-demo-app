@@ -64,7 +64,7 @@ function Chart({ data }) {
 
 function BitcoinDiagramm() {
   const [charts, setCharts] = useState({ name: "", unit: "", values: [] });
-  const [chartName, setChartName] = useState("market-price");
+  const chartName = "market-price";
   const [timespan, setTimespan] = useState("1year");
   const [start, setStart] = useState("");
 

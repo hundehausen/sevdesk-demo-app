@@ -1,5 +1,9 @@
 # sevDesk Bitcoin Demo App
 
+![sevDesk Logo](https://cdn.sevdesk.de/uploads/sevdesk-logo-black.png)
+
+Bitcoin Probeaufgabe für Frontend Entwickler (m/w/d)
+
 ## Installation
 
 ```
