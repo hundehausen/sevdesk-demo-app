@@ -25,7 +25,7 @@ function Chart({ data }) {
       <ResponsiveContainer height={400} width="90%">
         <LineChart
           data={data.values}
-          margin={{ top: 15, right: 15, left: 50, bottom: 15 }}
+          margin={{ top: 15, right: 15, left: 50, bottom: 100 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -39,7 +39,7 @@ function Chart({ data }) {
               moment.unix(unixTime).format("DD-MM-YYYY")
             }
           >
-            <Label value="Tage" offset={0} position="bottom" />
+            <Label value="Datum" offset={70} position="bottom" />
           </XAxis>
           <YAxis domain={["auto", "auto"]}>
             <Label value={data.unit} offset={0} position="left" />
@@ -53,7 +53,7 @@ function Chart({ data }) {
             type="monotone"
             dot={false}
             dataKey="y"
-            name="BTC/USD"
+            name="USD/BTC"
             stroke="#8884d8"
           />
         </LineChart>
