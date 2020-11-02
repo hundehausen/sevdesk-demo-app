@@ -27,7 +27,9 @@ function Dashboard({ ticker }) {
       <Container>
         {Object.keys(tableData).length !== 0 ? (
           <CustomTable data={tableData} />
-        ) : null}
+        ) : (
+          <div></div>
+        )}
       </Container>
     </div>
   );
