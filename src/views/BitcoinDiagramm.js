@@ -28,7 +28,7 @@ import {
 function Chart({ data }) {
   return (
     <Container>
-      <Typography variant="h3">{data.name}</Typography>
+      <Typography variant="h2">{data.name}</Typography>
       <ResponsiveContainer height={400} width="90%">
         <LineChart
           data={data.values}

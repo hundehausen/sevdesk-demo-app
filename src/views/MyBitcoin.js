@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
 import Header from "../components/Header";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+
+const theme = createMuiTheme();
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+    "& > *": {
+      margin: theme.spacing(1),
+    },
   },
 });
 
@@ -24,7 +24,8 @@ function MyBitcoin() {
   useEffect(() => {
     const userBtcLocalStorage = localStorage.getItem("userBtc");
     if (userBtcLocalStorage) {
-      setUserBtc(userBtcLocalStorage);
+      setUserBtc(parseFloat(userBtcLocalStorage));
+      setUserBtcInput(parseFloat(userBtcLocalStorage));
     }
   }, [setUserBtc]);
 
@@ -40,17 +41,22 @@ function MyBitcoin() {
   return (
     <div>
       <Header title="Meine Bitcoin" />
-      <Card className={classes.root}>
-        <CardContent>
-          <form onSubmit={handleFormSubmit}>
-            <label>
-              Your BTC amount:
-              <input name="userBtc" value={userBtc} onChange={handleChange} />
-            </label>
-            <button type="submit">Save</button>
-          </form>
-        </CardContent>
-      </Card>
+      <form className={classes.root}>
+        <FormControl>
+          <InputLabel htmlFor="user-btc-label">
+            Dein Bitcoin Guthaben
+          </InputLabel>
+          <Input
+            id="user-btc-label"
+            name="userBtc"
+            value={userBtcInput}
+            onChange={handleChange}
+          />
+        </FormControl>
+        <Button onClick={handleFormSubmit} variant="contained" color="primary">
+          Speichern
+        </Button>
+      </form>
     </div>
   );
 }
