@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getCharts } from "../libs/api";
-import moment from "moment";
 import Container from "@material-ui/core/Container";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
@@ -8,7 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import "date-fns";
+import { fromUnixTime, format, subYears } from "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   KeyboardDatePicker,
@@ -43,7 +42,7 @@ function Chart({ data }) {
             type="number"
             tickCount={20}
             tickFormatter={(unixTime) =>
-              moment.unix(unixTime).format("DD-MM-YYYY")
+              format(fromUnixTime(unixTime), "dd-MM-yyyy")
             }
           >
             <Label value="Datum" offset={70} position="bottom" />
@@ -53,7 +52,7 @@ function Chart({ data }) {
           </YAxis>
           <Tooltip
             labelFormatter={(unixTime) =>
-              moment.unix(unixTime).format("DD-MM-YYYY")
+              format(fromUnixTime(unixTime), "dd-MM-yyyy")
             }
           />
           <Line
@@ -74,7 +73,7 @@ function BitcoinDiagramm() {
   const chartName = "market-price";
   const [timespan, setTimespan] = useState("1year");
   const [start, setStart] = useState(
-    moment().subtract(1, "year").format("yyyy-MM-DD")
+    format(subYears(new Date(), 1), "yyyy-MM-dd")
   );
 
   // fetch all charts data from api

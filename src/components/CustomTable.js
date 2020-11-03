@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  container: {
+    maxHeight: 440,
+  },
 });
 
 export default function CustomTable({ data }) {
@@ -55,7 +58,7 @@ export default function CustomTable({ data }) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.container}>
       <Table
         stickyHeader
         className={classes.table}

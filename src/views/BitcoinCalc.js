@@ -36,16 +36,14 @@ function BitcoinCalc({ ticker }) {
   }, [ticker]);
 
   // build currency Selector Items
-  useEffect(() => {
-    if (currencies.length > 0) {
-      const items = currencies.map((currency) => (
-        <MenuItem key={currency} value={currency}>
-          {currency}
-        </MenuItem>
-      ));
-      setMenuItems(items);
-    }
-  }, [currencies]);
+  /* useEffect(() => {
+    const items = currencies.map((currency) => (
+      <MenuItem key={currency} value={currency}>
+        {currency}
+      </MenuItem>
+    ));
+    setMenuItems(items);
+  }, [currencies]); */
 
   // calculate
   useEffect(() => {
@@ -78,10 +76,14 @@ function BitcoinCalc({ ticker }) {
           <Select
             id="currency-select"
             variant="outlined"
-            defaultValue={selectedCurrency}
+            value={selectedCurrency}
             onChange={(e) => handleCurrencyChange(e)}
           >
-            {menuItems}
+            {currencies.map((currency) => (
+              <MenuItem key={currency} value={currency}>
+                {currency}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
