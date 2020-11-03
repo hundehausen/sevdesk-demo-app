@@ -5,8 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
 function BitcoinDetails({ stats }) {
-  const [displayData, setDisplayData] = useState(null);
-  const [cards, setCards] = useState([]);
+  const [displayData, setDisplayData] = useState({});
 
   useEffect(() => {
     // get relevant data
@@ -43,24 +42,19 @@ function BitcoinDetails({ stats }) {
     }
   }, [stats]);
 
-  useEffect(() => {
-    if (displayData) {
-      for (const [key, value] of Object.entries(displayData)) {
-        const newCard = (
-          <Grid item key={"GridItem: " + key} md={4} sm={6} xs={12}>
-            <SimpleCard key={key} title={value.title} content={value.data} />{" "}
-          </Grid>
-        );
-        setCards((prevCards) => [...prevCards, newCard]);
-      }
-    }
-  }, [displayData]);
+  function renderCards() {
+    return Object.entries(displayData).map(([key, value]) => (
+      <Grid item key={"GridItem: " + key} md={4} sm={6} xs={12}>
+        <SimpleCard key={key} title={value.title} content={value.data} />
+      </Grid>
+    ));
+  }
 
   return (
     <Container>
       <Header title="Bitcoin Details" />
       <Grid container spacing={3}>
-        {cards}
+        {renderCards()}
       </Grid>
     </Container>
   );

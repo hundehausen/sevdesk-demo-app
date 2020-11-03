@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Container from "@material-ui/core/Container";
@@ -11,19 +10,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
-const theme = createMuiTheme();
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   form: {
     margin: theme.spacing(2),
   },
-});
+}));
 
 function BitcoinCalc({ ticker }) {
   const [selectedCurrency, setSelectedCurrency] = useState("EUR");
   const [amount, setAmount] = useState(100);
   const [currencies, setCurrencies] = useState([]);
-  const [menuItems, setMenuItems] = useState(null);
   const [bitcoinValue, setBitcoinValue] = useState(0);
   const classes = useStyles();
 
