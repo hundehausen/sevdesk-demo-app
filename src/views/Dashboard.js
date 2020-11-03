@@ -2,13 +2,12 @@ import { Container, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import CustomTable from "../components/CustomTable";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Header from "../components/Header";
 
 function Dashboard({ ticker }) {
   const [tableData, setTableData] = useState([]);
   const [userBtc, setUserBtc] = useState(0);
+  const [userEur, setUserEur] = useState(0);
 
   useEffect(() => {
     if (ticker) {
@@ -26,10 +25,15 @@ function Dashboard({ ticker }) {
 
   useEffect(() => {
     const userBtcLocalStorage = localStorage.getItem("userBtc");
-    if (userBtcLocalStorage) {
+    if (userBtcLocalStorage && ticker) {
       setUserBtc(parseFloat(userBtcLocalStorage));
+      const eurPrice = ticker["EUR"].last;
+      const usrEur = (
+        parseFloat(userBtcLocalStorage) * eurPrice
+      ).toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+      setUserEur(usrEur);
     }
-  }, [setUserBtc]);
+  }, [setUserBtc, ticker]);
 
   return (
     <div>
@@ -49,13 +53,9 @@ function Dashboard({ ticker }) {
           </Grid>
         ) : null}
         <Grid item xs={12}>
-          <Typography variant="h3">Meine Bitcoin</Typography>
-          <Card>
-            <CardContent>
-              <Typography variant="h5">Dein Bitcoin Guthaben</Typography>
-              <Typography color="textSecondary">{userBtc} BTC</Typography>
-            </CardContent>
-          </Card>
+          <Typography variant="h4">Mein Bitcoin Guthaben</Typography>
+          <Typography color="textSecondary">{userBtc} BTC</Typography>
+          <Typography color="textSecondary">{userEur}</Typography>
         </Grid>
       </Grid>
     </div>

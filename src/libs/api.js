@@ -7,25 +7,23 @@ const instance = axios.create({
   params: { cors: true },
 });
 
-async function getTicker() {
+export async function getTicker() {
   return instance
     .get("/ticker")
     .then((res) => res.data)
     .catch((error) => console.error(error));
 }
 
-async function getStats() {
+export async function getStats() {
   return instance
     .get("/stats")
     .then((res) => res.data)
     .catch((error) => console.error(error));
 }
 
-async function getCharts(chartName, timespan, start) {
+export async function getCharts(chartName, timespan, start) {
   return instance
     .get(`/charts/${chartName}`, { params: { timespan, start } })
     .then((res) => res.data)
     .catch((error) => console.error(error));
 }
-
-export { getTicker, getStats, getCharts };
