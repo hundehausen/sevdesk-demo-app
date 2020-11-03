@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 440,
   },
   container: {
     maxHeight: 440,

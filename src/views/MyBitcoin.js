@@ -16,24 +16,21 @@ const useStyles = makeStyles((theme) => ({
 
 function MyBitcoin() {
   const [userBtc, setUserBtc] = useState(0);
-  const [userBtcInput, setUserBtcInput] = useState(0);
   const classes = useStyles();
 
   useEffect(() => {
     const userBtcLocalStorage = localStorage.getItem("userBtc");
     if (userBtcLocalStorage) {
       setUserBtc(parseFloat(userBtcLocalStorage));
-      setUserBtcInput(parseFloat(userBtcLocalStorage));
     }
-  }, [setUserBtc]);
+  }, []);
 
   function handleChange(e) {
-    setUserBtcInput(e.target.value);
+    setUserBtc(e.target.value);
   }
 
   function handleFormSubmit() {
-    setUserBtc(userBtcInput);
-    localStorage.setItem("userBtc", userBtcInput);
+    localStorage.setItem("userBtc", userBtc);
   }
 
   return (
@@ -47,7 +44,7 @@ function MyBitcoin() {
           <Input
             id="user-btc-label"
             name="userBtc"
-            value={userBtcInput}
+            value={userBtc}
             onChange={handleChange}
           />
         </FormControl>
