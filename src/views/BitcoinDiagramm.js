@@ -7,6 +7,13 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import {
   ResponsiveContainer,
   LineChart,
@@ -66,7 +73,9 @@ function BitcoinDiagramm() {
   const [charts, setCharts] = useState({ name: "", unit: "", values: [] });
   const chartName = "market-price";
   const [timespan, setTimespan] = useState("1year");
-  const [start, setStart] = useState("");
+  const [start, setStart] = useState(
+    moment().subtract(1, "year").format("yyyy-MM-DD")
+  );
 
   // fetch all charts data from api
   useEffect(() => {
@@ -77,24 +86,48 @@ function BitcoinDiagramm() {
     setTimespan(event.target.value);
   }
 
+  function handleDateChange(date) {
+    setStart(date.toISOString());
+  }
+
   return (
     <div>
       {charts ? <Chart data={charts} /> : null}
-      <FormControl>
-        <InputLabel id="zeitraum-label">Zeitraum</InputLabel>
-        <Select
-          labelId="zeitraum-label"
-          id="zeitraum"
-          value={timespan}
-          onChange={handleTimeRangeChange}
-        >
-          <MenuItem value={"1weeks"}>1 Woche</MenuItem>
-          <MenuItem value={"1months"}>1 Monat</MenuItem>
-          <MenuItem value={"3months"}>3 Monate</MenuItem>
-          <MenuItem value={"6months"}>6 Monate</MenuItem>
-          <MenuItem value={"1year"}>1 Jahr</MenuItem>
-        </Select>
-      </FormControl>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Grid container justify="space-around">
+          <FormControl>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="yyyy-MM-dd"
+              margin="normal"
+              id="date-picker-inline"
+              label="Start"
+              value={start}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </FormControl>
+
+          <FormControl>
+            <InputLabel id="zeitraum-label">Zeitraum</InputLabel>
+            <Select
+              labelId="zeitraum-label"
+              id="zeitraum"
+              value={timespan}
+              onChange={handleTimeRangeChange}
+            >
+              <MenuItem value={"1weeks"}>1 Woche</MenuItem>
+              <MenuItem value={"1months"}>1 Monat</MenuItem>
+              <MenuItem value={"3months"}>3 Monate</MenuItem>
+              <MenuItem value={"6months"}>6 Monate</MenuItem>
+              <MenuItem value={"1year"}>1 Jahr</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </MuiPickersUtilsProvider>
     </div>
   );
 }

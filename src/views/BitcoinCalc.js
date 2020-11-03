@@ -9,18 +9,19 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 const theme = createMuiTheme();
 
 const useStyles = makeStyles({
-  root: {
+  form: {
     margin: theme.spacing(2),
   },
 });
 
 function BitcoinCalc({ ticker }) {
   const [selectedCurrency, setSelectedCurrency] = useState("EUR");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(100);
   const [currencies, setCurrencies] = useState([]);
   const [menuItems, setMenuItems] = useState(null);
   const [bitcoinValue, setBitcoinValue] = useState(0);
@@ -62,8 +63,8 @@ function BitcoinCalc({ ticker }) {
   return (
     <Container>
       <Header title="Bitcoin Umrechner" />
-      <form noValidate autoComplete="off" className={classes.root}>
-        <FormControl margin="normal">
+      <form noValidate autoComplete="off">
+        <FormControl margin="normal" className={classes.form}>
           <InputLabel htmlFor="amount">Betrag</InputLabel>
           <Input
             id="amount"
@@ -73,7 +74,7 @@ function BitcoinCalc({ ticker }) {
             onChange={(e) => handleValueChange(e)}
           />
         </FormControl>
-        <FormControl margin="normal">
+        <FormControl margin="normal" className={classes.form}>
           <Select
             id="currency-select"
             variant="outlined"
@@ -83,7 +84,10 @@ function BitcoinCalc({ ticker }) {
             {menuItems}
           </Select>
         </FormControl>
-        <FormControl margin="normal">
+
+        <Typography>=</Typography>
+
+        <FormControl margin="normal" className={classes.form}>
           <TextField
             id="outlined-basic"
             label="BTC"
