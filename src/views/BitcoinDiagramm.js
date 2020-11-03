@@ -38,7 +38,7 @@ function Chart({ data }) {
           <XAxis
             angle={-45}
             dataKey="x"
-            domain={["auto", "auto"]}
+            domain={["dataMin", "dataMax"]}
             textAnchor="end"
             type="number"
             tickCount={20}

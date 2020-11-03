@@ -53,6 +53,7 @@ function MyBitcoin() {
             onChange={handleChange}
           />
         </FormControl>
+        BTC
         <Button onClick={handleFormSubmit} variant="contained" color="primary">
           Speichern
         </Button>
