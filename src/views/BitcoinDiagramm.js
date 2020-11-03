@@ -41,9 +41,12 @@ function Chart({ data }) {
             textAnchor="end"
             type="number"
             tickCount={20}
-            tickFormatter={(unixTime) =>
-              format(fromUnixTime(unixTime), "dd-MM-yyyy")
-            }
+            tickFormatter={(unixTime) => {
+              if (data.values.length) {
+                return format(fromUnixTime(unixTime), "dd-MM-yyyy");
+              }
+              return format(new Date(), "dd-MM-yyyy");
+            }}
           >
             <Label value="Datum" offset={70} position="bottom" />
           </XAxis>
@@ -51,9 +54,12 @@ function Chart({ data }) {
             <Label value={data.unit} offset={0} position="left" />
           </YAxis>
           <Tooltip
-            labelFormatter={(unixTime) =>
-              format(fromUnixTime(unixTime), "dd-MM-yyyy")
-            }
+            labelFormatter={(unixTime) => {
+              if (data.values.length) {
+                return format(fromUnixTime(unixTime), "dd-MM-yyyy");
+              }
+              return format(new Date(), "dd-MM-yyyy");
+            }}
           />
           <Line
             type="monotone"
